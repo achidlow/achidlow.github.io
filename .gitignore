@@ -1,0 +1,7 @@
+.bundle/
+.idea/
+.sass-cache/
+_site/
+.jekyll-metadata
+# always want the latest and greatest, since  GitHub is building this, not just us
+Gemfile.lock
