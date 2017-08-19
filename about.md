@@ -4,43 +4,87 @@ layout: page
 ---
 ![Profile Image]({{ site.url }}/{{ site.picture }})
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+_{{ site.description }}._
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+## Career & Qualifications
 
-<h2>Skills</h2>
+Since obtaining his Bachelor of Science, double majoring in Computer Science & Mathematics and graduating with Distinction, he has worked at companies ranging startups to multinational technology verticals, working on teams of varying size ranging from being the sole developer to teams of 20+ people spanning multiple continents.
 
-<ul class="skill-list">
-	<li>HTML - Jade - Haml - Erb</li>
-	<li>Responsive (Mobile First)</li>
-	<li>CSS (Stylus, Sass, Less)</li>
-	<li>Css Frameworks (Bootstrap, Foundation)</li>
-	<li>Javascript (Design Patterns, Testes)</li>
-	<li>NodeJS</li>
-	<li>AngularJS - ReactJS</li>
-	<li>Grunt - Gulp - Yeoman</li>
-	<li>Git</li>
-	<li>PHP</li>
-	<li>Python</li>
-	<li>MySQL - MongoDB</li>
-	<li>Scrum and Kanban</li>
-	<li>TDD e Continuous Integration</li>
-</ul>
+He is a programming polyglot, with various levels of professional experience in C, C++, Python, C#, Java, Javacript, Fortran, Maple, CUDA, and x86 Assembly. He has developed for Linux and Microsoft Windows, for desktop and for the web. His preference is for developing in Python, running on Linux and dropping down to C++ for performance critical components, with Cython acting as the glue.
 
-<h2>Projects</h2>
+As a strong believer in life-long learning, his interest post-graduation has been fervently captured by the field of machine learning, and in particular with probabilistic methods.
 
-<ul>
-	<li><a href="https://github.com/">Lorem Lorem</a></li>
-	<li><a href="https://github.com/">Ipsum Dolor</a></li>
-	<li><a href="https://github.com/">Dolor Lorem</a></li>
-</ul>
+Adam is available for consulting projects on a part-time basis. His rates vary based on the project type, problem domain, and expected length/frequency. If you have something for which you think he would be suited, please [get in touch](mailto:hello@chidlow.net) with a short description of your work proposal to discuss options.
+
+## Bio
+
+Adam first fell in love with mathematics at the age of 10 after being given some old University textbooks to use as door stops, one of which was "Calculus, Vol. 1" by Apostol, which he started reading and thought was the coolest thing ever. He became similarly enamoured with programming at a young age, and was (and still is) particularly excited at the intersection between the two, even implementing a very simple Computer Algebra System to do some of his more tedious math homework for him in high school.
+
+He had a very hard time choosing between continuing his studies after being accepted to do his honours year, or taking a an offer of full time employment to work in the very exciting & challenging domain of mine planning and optimisation software. One day he hopes to be able to return to his studies and obtain a Ph.D in Computer Science or Mathematics.
+
+His favourite theorem is Gödel's incompleteness theorem.
+
+In what little free time he has, he enjoys reading (mostly speculative fiction), power-lifting, and amateur astronomy.
+
+## Skills
+
+* Algorithm design & analysis
+* Software design, development, testing, and maintenance
+* Mathematical modelling
+* Numerical & scientific computing
+* Writing reliable, fault-tolerant, and easily maintainable software
+* Parallel & distributed programming
+* Performance profiling & optimisation
+* Machine learning
+    * Probabilistic graphical models
+    * Bayesian methods
+    * Neural networks
+* Database design
+* API design
+* Back-end web development
+* Desktop development
+* Large data processing e.g. LIDAR point clouds
+* Near real-time systems
+* Cross-platform development
+* Principled approaches to Object Oriented design
+* Server deployment and maintenance
+
+## Technologies & Processes
+
+Adam is confident in his ability to pick up any new language or skill required on the job in a very short amount of time. However he recognises the need sometimes to have someone with in depth experience in a particular area who can hit the ground running, so has broken up his experience by competency level.
+
+#### Proficient
+* C++
+* Python
+* C#
+* Django
+* REST
+* gRPC
+* git
+* SVN
+* Linux
+* Windows
+* Scrum and Kanban
+* TDD
+
+#### Professional experience/exposure
+* SQL
+* PostGIS
+* Docker
+* Vagrant
+* Amazon Web Services
+* Java
+* ASP.NET MVC & Entity Framework
+* HTML & CSS
+* CUDA
+* Javascript
+* iOS
+
+
+#### Passing knowledge
+* Low-level socket programming
+* macOS
+* Pure functional programming
+* Embedded systems
+* Android
+* Javascript MVC frameworks (Angular 2, Ember.js)
