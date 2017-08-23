@@ -10,7 +10,7 @@ _{{ site.description }}._
 
 Since obtaining his Bachelor of Science, double majoring in Computer Science & Mathematics and graduating with Distinction, he has worked at companies ranging startups to multinational technology verticals, working on teams of varying size ranging from being the sole developer to teams of 20+ people spanning multiple continents.
 
-He is a programming polyglot, with various levels of professional experience in C, C++, Python, C#, Java, Javacript, Objective-C, Fortran, Maple, CUDA, and x86 Assembly. He has developed for Linux and Microsoft Windows, for desktop and for the web. His preference is for developing in Python, running on Linux and dropping down to C++ for performance critical components, with Cython acting as the glue.
+He is a programming polyglot, with various levels of professional experience in Python, C, C++, C#, Objective-C, Java, Javacript, Fortran, Maple, MATLAB, CUDA, and x86 Assembly. He has developed for Linux and Microsoft Windows, for desktop and for the web. His preference is for developing in Python, running on Linux and with a bit of C++/Cython thrown in as required for performance critical components.
 
 Adam naturally has a predilection for working on projects which require the application of his mathematical skills to break down real world problems, before proceeding to turn it all in to ones and zeros. However he is also well experienced in principled approaches to software design, and in writing robust, elegant, and maintainable software.
 
@@ -31,6 +31,8 @@ He had a hard time choosing between continuing his studies after being accepted 
 His favourite theorem is Gödel's incompleteness theorem.
 
 In what little free time he has, he enjoys reading (mostly speculative fiction), power-lifting, and amateur astronomy.
+
+{::comment}
 
 ## Skills
 
@@ -86,3 +88,5 @@ Adam is confident in his ability to pick up any new language or skill required o
 
 #### Professional exposure
 * Too many to list...
+
+{:/comment}
