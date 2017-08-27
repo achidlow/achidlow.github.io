@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Distributed Computing with IPython | Ghost in the Machine</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="/blog/xmlrpc.php" />
+<!--[if lt IE 9]>
+<script src="/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="Ghost in the Machine &raquo; Feed" href="/blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Ghost in the Machine &raquo; Comments Feed" href="/blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Ghost in the Machine &raquo; Distributed Computing with IPython Comments Feed" href="/blog/2013/09/24/distributed-computing-with-ipython/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.9"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='twentytwelve-fonts-css'  href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-style-css'  href='/blog/wp-content/themes/twentytwelve-child/style.css?ver=4.5.9' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='/blog/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Welcome' href='/blog/2013/09/24/welcome/' />
+<link rel='next' title='Create an IPython launcher on OS X' href='/blog/2013/10/02/create-ipython-launcher-osx/' />
+<meta name="generator" content="WordPress 4.5.9" />
+<link rel="canonical" href="/blog/2013/09/24/distributed-computing-with-ipython/" />
+<link rel='shortlink' href='/blog/?p=39' />
+<link rel="alternate" type="application/json+oembed" href="/blog/wp-json/oembed/1.0/embed?url=%2F2013%2F09%2F24%2Fdistributed-computing-with-ipython%2F" />
+<link rel="alternate" type="text/xml+oembed" href="/blog/wp-json/oembed/1.0/embed?url=%2F2013%2F09%2F24%2Fdistributed-computing-with-ipython%2F&#038;format=xml" />
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #333333; }
+</style>
+</head>
+
+<body class="single single-post postid-39 single-format-standard custom-background custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="/blog/" title="Ghost in the Machine" rel="home">Ghost in the Machine</a></h1>
+			<h2 class="site-description">A blog by Adam Chidlow</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<button class="menu-toggle">Menu</button>
+			<a class="assistive-text" href="#content" title="Skip to content">Skip to content</a>
+			<div class="nav-menu"><ul><li ><a href="/blog/">Home</a></li><li class="page_item page-item-29"><a href="/blog/about/">About Me</a></li></ul></div>
+		</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+				
+	<article id="post-39" class="post-39 post type-post status-publish format-standard hentry category-machine-learning category-programming tag-ipython tag-python tag-scikit-learn">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">Distributed Computing with IPython</h1>
+										<div class="comments-link">
+					<a href="/blog/2013/09/24/distributed-computing-with-ipython/#respond"><span class="leave-reply">Leave a reply</span></a>				</div><!-- .comments-link -->
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<h2>Introduction</h2>
+<p>The purpose of this post is to give a quick and straight-forward introduction to solving <a href="http://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly parallel</a> problems in a distributed manner with <a href="http://ipython.org/">IPython</a>. If you only want to run parallel code on a single machine, you might want to consider <a href="http://pythonhosted.org/joblib/">Joblib</a> instead, which has a much simpler interface.</p>
+<p><strong>Full disclosure:</strong> I&#8217;m very much a beginner in both IPython and distributed computing, so don&#8217;t take anything in this tutorial for gospel. Any and all constructive criticism is welcome in the comments!</p>
+<p>There are already a few <a href="http://warrickball.blogspot.com.au/2013/06/parallel-ipython.html">tutorials</a> <a href="http://minrk.github.io/scipy-tutorial-2011/">out</a> <a href="http://www.ianhowson.com/how-to-set-up-a-private-ipython-cluster.html">there</a> which may serve you better, and this is of course not going to be as complete as the <a href="http://ipython.org/ipython-doc/stable/parallel/index.html">IPython parallel documentation</a>, but I hope to help you get up and running as quickly as possible, and in particular also handle the case where at least one of the nodes is running Windows.</p>
+<p>Before we begin, here&#8217;s a quick word about what IPython actually is, taken <a href="http://ipython.org/ipython-doc/stable/overview.html">from the documentation</a>:</p>
+<blockquote><p>One of Python’s most useful features is its interactive interpreter. It allows for very fast testing of ideas without the overhead of creating test files as is typical in most programming languages. However, the interpreter supplied with the standard Python distribution is somewhat limited for extended interactive use.</p>
+<p>The goal of IPython is to create a comprehensive environment for interactive and exploratory computing. To support this goal, IPython has three main components:</p>
+<ul>
+<li>An enhanced interactive Python shell.</li>
+<li>A decoupled two-process communication model, which allows for multiple clients to connect to a computation kernel, most notably the web-based notebook.</li>
+<li>An architecture for interactive parallel computing.</li>
+</ul>
+</blockquote>
+<h2>Installation</h2>
+<p>First things first, you of course need to install IPython on all the machines you want to run it on. See <a href="http://ipython.org/ipython-doc/stable/install/install.html#installing-ipython-itself">here</a> for the instructions, and make sure to install the dependencies for IPython.parallel as well, which is a bit further down the page. I personally used <a href="https://www.enthought.com/">Enthough Canopyy</a> for installation on windows, <a href="http://brew.sh/">homebrew</a> and pip for OS X, and the <a href="http://neuro.debian.net/">NueroDebian</a> repositories on Linux. Whatever method you use, make sure to install the same version of IPython on all the computers.</p>
+<p>If you wish to run the final example in this tutorial, you&#8217;ll also need to install the <a href="http://www.scipy.org/">SciPy</a> stack and <a href="http://scikit-learn.org/stable/">scikit-learn</a>, but these are not essential for using IPython for distributed computing.</p>
+<h2>Set up</h2>
+<p>Once you&#8217;ve installed IPython, the first thing you&#8217;ll need to do is create a profile. Run the following command on all the computers you wish to use:</p>
+<pre>ipython profile create --parallel</pre>
+<p>This will create a default profile in the subdirectory <code>.ipython/profile_default/</code> of your home directory, and add the necessary configuration files for creating a cluster. IPython allows you to have multiple profiles, but for simplicity here we&#8217;re going to assume you want the cluster profile to be your default. You can <a href="http://ipython.org/ipython-doc/stable/config/overview.html">read more</a> about IPython profiles if you wish.</p>
+<p>At this point it is useful for us to introduce a bit of terminology. A controller node is the computer you want to run the computations <em>from</em>, and an engine node is a computer you want to run computations <em>on</em>. A node can be both a controller and an engine, but there should only be one controller in the cluster.</p>
+<p>So with that in mind, let&#8217;s run the following command on the controller node:</p>
+<pre>ipcontroller --reuse --ip=*</pre>
+<p>If you run into any connection problems later on in this tutorial, try substituting your controller&#8217;s external IP address for <code>*</code> in the above command. This address will of course need to be accessible by all engine nodes.</p>
+<p>The above command will create some files in <code>.ipython/profile_default/security/</code>. Copy those files to the same directory on your engine nodes. This is the reason we gave the <code>--reuse</code> flag to ipcontroller, without it you would need to copy these files over every time you wanted to start up your cluster. Note that this may have some negative security implications if you&#8217;re not on a trusted network, in which case you probably want to read the IPython documentation on the matter.</p>
+<p>Okay, now that you&#8217;ve copied over the generated security files, you&#8217;re ready to start your engines! On each engine node run the following:</p>
+<pre>ipengine</pre>
+<p>This will only start a single process though, if you have a multi-core machine then you&#8217;ll want to start as many <code>ipengine</code>s as you have cores. If your CPU has hyper-threading, you can start one <code>ipengine</code> per virtual core if you wish, but I&#8217;d suggest timing the execution of your program with and without using virtual cores just to be sure it&#8217;s improving performance.</p>
+<h2>No engine nodes running Windows?</h2>
+<p>If none of your engine nodes are running Windows then the simpler option for starting your cluster is to use IPython&#8217;s SSH support. Consult the documentation for more details.</p>
+<h2>Are we there yet?</h2>
+<p>Let&#8217;s check to make sure everything is working so far. Run the following commands:</p>
+<pre>In [1]: from IPython.parallel import Client
+
+In [2]: rc = Client()
+
+In [3]: print rc.ids
+Out[3]: [0, 1, 2, 3, 4, 5, 6, 7, 8]</pre>
+<p>A few things to note before we continue: the above should work regardless of whether it is run as a script, from an IPython shell or from a regular Python shell. However if you&#8217;re using a non-default profile and running it outside of the IPython shell you&#8217;ll need to pass the profile name as a keyword parameter to the <code>Client</code> constructor. Also, <code>rc.ids</code> should contain as many entries as <code>ipengine</code>s you&#8217;ve started.</p>
+<p>The <code>Client</code> class is your gateway to accessing your <code>ipcontroller</code> in Python code. From it we create &#8220;views&#8221; which allow us to actually execute things on our engine nodes. Let&#8217;s create the first type of view we&#8217;ll see in this tutorial, a &#8220;direct view&#8221;:</p>
+<pre>In [4]: dview = rc[:]</pre>
+<p>This creates a direct view that uses all the engine nodes in our cluster. Let&#8217;s run something on them:</p>
+<pre>In [5]: def square(x):
+   ...:     return x**2
+   ...: 
+
+In [6]: squares = dview.map_sync(square, range(20))
+
+In [7]: print squares
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361]</pre>
+<p>What has happened above is the function <code>square</code> was sent to each node, along with an equal portion of the input. Since we called <code>dview.map_sync()</code> instead of <code>dview.map_async()</code> it is a blocking call for the client and the result is returned directly, which in this case we assigned to <code>squares</code>.</p>
+<p>Here is an example using <code>dview.map_async()</code> instead:</p>
+<pre>In [8]: import time
+
+In [9]: def stall(x):
+   ...:     time.sleep(x)
+   ...:     return x
+   ...: 
+
+In [10]: ar = dview.map_async(stall, [5] * 8)</pre>
+<p>The above call returns immediately with an <code>AsyncResult</code> object. We can do a non-blocking check to see if the results are ready yet:</p>
+<pre>In [11]: ar.ready()
+Out[11]: True</pre>
+<p>Hmmmm&#8230; that didn&#8217;t feel like 5 seconds already, but okay. Lets get our results!</p>
+<pre>In [12]: ar.result
+[0:apply]: 
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last) in ()
+ in stall(x)
+NameError: global name 'time' is not defined
+
+[2:apply]: 
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last) in ()
+ in stall(x)
+NameError: global name 'time' is not defined
+
+[3:apply]: 
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last) in ()
+ in stall(x)
+NameError: global name 'time' is not defined
+
+[4:apply]: 
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last) in ()
+ in stall(x)
+NameError: global name 'time' is not defined
+
+... 4 more exceptions ...</pre>
+<p>Ah, that&#8217;s why it was so quick. This brings us to an important point on distributed programming with IPython: code dependencies are not transferred for you! This includes modules, functions, and variables</p>
+<h2>Distributing data and code</h2>
+<p>Let&#8217;s fix things so our previous example works:</p>
+<pre>In [13]: with dview.sync_imports():
+    ...:     import time
+    ...:     
+importing time on engine(s)
+
+In [14]: ar = dview.map_async(stall, [5] * 8)
+
+In [15]: ar.ready()
+Out[15]: False
+
+In [16]: ar.wait()
+
+In [17]: results = ar.result
+
+In [18]: print results
+[5, 5, 5, 5, 5, 5, 5, 5]</pre>
+<p>Much better. The <code>dview.sync_imports()</code> context manager executes import statements on all engines. The <code>wait()</code> call does what you&#8217;d expect: blocks until the results are ready.</p>
+<p>Here&#8217;s how we send variables to engines:</p>
+<pre>In [19]: def add_x(i):
+    ...:     return x + i
+    ...: 
+
+In [20]: dview.push(dict(x=5), block=True)
+Out[20]: [None, None, None, None, None, None, None, None]
+
+In [21]: print dview.map_sync(add_x, range(5))
+Out[21]: [5, 6, 7, 8, 9]</pre>
+<p>We&#8217;ll also need to send any local functions:</p>
+<pre>In [22]: def square_and_add_x(i):
+    ...:     return add_x(i**2)
+    ...: 
+
+In [23]: dview.push(dict(add_x=add_x), block=True)
+Out[23]: [None, None, None, None, None, None, None, None]
+
+In [24]: print dview.map_sync(square_and_add_x, [1,2,2,3,5,8])
+[6, 9, 9, 14, 30, 69]</pre>
+<h2>Load balancing</h2>
+<p>As was touched on above, a direct view splits the input into equal sized chunks and distributes them evenly across the running <code>ipengine</code>s. For a homogeneous cluster this isn&#8217;t a problem, but what if some nodes are faster than others? The good news is, IPython also features load balancing! And it&#8217;s just as easy to use as the direct view. Here&#8217;s how we create a load balancing view over all engines:</p>
+<pre>In [25]: lview = rc.load_balanced_view()
+
+In [26]: lview.map_sync(square_and_add_x, xrange(5))
+Out[26]: [5, 6, 9, 14, 21]</pre>
+<p>And that&#8217;s all there is to it! Neat, huh? Of note here is that even though we pushed the variable <code>x</code> and the function <code>add_x()</code> to the engines via the direct view, they were still available using the load balanced view.</p>
+<h2>A machine learning example</h2>
+<p>Let&#8217;s finish up this tutorial with a real world example. Cross-validation of hyper-parameters as used in machine learning is an example of an embarrassingly parallel problem. This can be particularly time consuming, so throwing as many cores as possible at the problem makes sense. Unlike our previous examples, we&#8217;ll be running this as a standalone Python script. See the code comments for explanations of a few new features:</p>
+<p><script src="https://gist.github.com/achidlow/6700768.js"></script></p>
+<p>Running the above script gives the following output on my machine:</p>
+<pre>
+importing numpy on engine(s)
+importing svm from sklearn on engine(s)
+in sync results 
+
+Running 150 tasks:
+    Done   72 out of  150 | elapsed:    5.3s remaining:    5.8s
+    Done  138 out of  150 | elapsed:   10.3s remaining:    0.9s
+    Done  150 out of  150 | elapsed:   11.3s remaining:    0.0s
+
+Parallel speedup: 775%
+
+Best: C = 1000000.0, gamma = 0.0001, err = 2.0%
+
+[[ 100.    100.    100.    100.    100.    100.    100.    100.    100.  ]
+ [ 100.    100.    100.     92.     12.      6.    100.    100.    100.  ]
+ [ 100.    100.     79.33   10.      2.67    5.33   11.33   49.33   63.33]
+ [ 100.     78.67   10.      4.      4.      6.     11.33   48.     63.33]
+ [  78.     10.      4.      3.33    4.67    6.67   11.33   48.     63.33]
+ [  10.      4.      3.33    4.67    6.67    6.67   11.33   48.     63.33]
+ [   4.      3.33    3.33    4.67    7.33    6.67   11.33   48.     63.33]
+ [   3.33    3.33    2.67    4.67    7.33    6.67   11.33   48.     63.33]
+ [   3.33    2.      3.33    6.67    7.33    6.67   11.33   48.     63.33]
+ [   4.      4.      4.67    6.      7.33    6.67   11.33   48.     63.33]
+ [   4.67    4.      6.      6.      7.33    6.67   11.33   48.     63.33]]
+
+Total time:   11.3s
+</pre>
+<h2>That&#8217;s all folks!</h2>
+<p>Thanks for reading my blog post, and I hope it&#8217;s helped. Feel free to leave any questions or constructive criticism as a comment.</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="/blog/category/machine-learning/" rel="category tag">Machine Learning</a>, <a href="/blog/category/programming/" rel="category tag">Programming</a> and tagged <a href="/blog/tag/ipython/" rel="tag">IPython</a>, <a href="/blog/tag/python/" rel="tag">Python</a>, <a href="/blog/tag/scikit-learn/" rel="tag">scikit-learn</a> on <a href="/blog/2013/09/24/distributed-computing-with-ipython/" title="2:15 pm" rel="bookmark"><time class="entry-date" datetime="2013-09-24T14:15:44+00:00">September 24, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/blog/author/adam/" title="View all posts by Adam Chidlow" rel="author">Adam Chidlow</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+				<nav class="nav-single">
+					<h3 class="assistive-text">Post navigation</h3>
+					<span class="nav-previous"><a href="/blog/2013/09/24/welcome/" rel="prev"><span class="meta-nav">&larr;</span> Welcome</a></span>
+					<span class="nav-next"><a href="/blog/2013/10/02/create-ipython-launcher-osx/" rel="next">Create an IPython launcher on OS X <span class="meta-nav">&rarr;</span></a></span>
+				</nav><!-- .nav-single -->
+
+				
+<div id="comments" class="comments-area">
+
+	
+	
+					<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/2013/09/24/distributed-computing-with-ipython/#respond" style="display:none;">Cancel reply</a></small></h3>				<form action="/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+					<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name</label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" /></p>
+<p class="comment-form-email"><label for="email">Email</label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='39' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="fb9396fe1d" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="9"/></p>				</form>
+					</div><!-- #respond -->
+		
+</div><!-- #comments .comments-area -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="search-2" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="/blog/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Search" />
+				</div>
+			</form></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="/blog/2013/10/02/create-ipython-launcher-osx/">Create an IPython launcher on OS X</a>
+						</li>
+					<li>
+				<a href="/blog/2013/09/24/distributed-computing-with-ipython/">Distributed Computing with IPython</a>
+						</li>
+					<li>
+				<a href="/blog/2013/09/24/welcome/">Welcome</a>
+						</li>
+				</ul>
+		</aside>		<aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">Archives</h3>		<ul>
+			<li><a href='/blog/2013/10/'>October 2013</a></li>
+	<li><a href='/blog/2013/09/'>September 2013</a></li>
+		</ul>
+		</aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-6"><a href="/blog/category/announcements/" >Announcements</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="/blog/category/how-to/" >How-to</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="/blog/category/machine-learning/" >Machine Learning</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="/blog/category/programming/" >Programming</a>
+</li>
+		</ul>
+</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<span id="bruteprotect_uptime_check_string" style="display:none;">7ads6x98y</span><script type='text/javascript' src='/blog/wp-content/plugins/akismet/_inc/form.js?ver=3.1.11'></script>
+<script type='text/javascript' src='/blog/wp-includes/js/comment-reply.min.js?ver=4.5.9'></script>
+<script type='text/javascript' src='/blog/wp-content/themes/twentytwelve/js/navigation.js?ver=20140711'></script>
+<script type='text/javascript' src='/blog/wp-includes/js/wp-embed.min.js?ver=4.5.9'></script>
+</body>
+</html>

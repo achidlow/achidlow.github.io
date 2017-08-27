@@ -20,7 +20,7 @@ url: https://chidlow.net
 # your url: http://USERNAME.github.io
 title: chidlow.net
 
-permalink: /:title/
+permalink: /posts/:title
 
 # To enable google analytics, supply your token below
 analytics-google: 'UA-104940718-1'

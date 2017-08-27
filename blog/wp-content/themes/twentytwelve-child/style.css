@@ -1,0 +1,53 @@
+/*
+ Theme Name:     Twenty Twelve Child
+ Template:       twentytwelve
+*/
+
+/* =Imports styles from the parent theme
+-------------------------------------------------------------- */
+@import url('/blog/wp-content/themes/twentytwelve/style.css');
+
+
+/* =Theme customization starts here
+-------------------------------------------------------------- */
+.entry-content blockquote,
+.entry-content pre,
+.comment-content blockquote,
+.comment-content pre {
+  background: #f7f7f7;
+}
+
+/* This Block Adjusts the Overall Theme Width */
+footer[role="contentinfo"] {
+        max-width: 1100px;
+}
+
+@media screen and (min-width: 600px) {
+        .site {
+                max-width: 1100px;
+                max-width: 78.571428571rem;
+        }
+}
+
+
+.ie .site {
+        max-width: 1100px;
+}
+
+.site-content article {
+   word-wrap: normal;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+   hyphens: none;
+}
+
+.widget-area .widget {
+        -webkit-hyphens: none;
+        -moz-hyphens: none;
+        hyphens: none;
+        word-wrap: normal;
+}
+
+.site-info {
+	display: none;
+}

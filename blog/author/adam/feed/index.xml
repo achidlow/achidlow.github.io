@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Adam Chidlow &#8211; Ghost in the Machine</title>
+	<atom:link href="/blog/author/adam/feed/" rel="self" type="application/rss+xml" />
+	<link>/blog</link>
+	<description>A blog by Adam Chidlow</description>
+	<lastBuildDate>Mon, 23 Jun 2014 07:58:01 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.5.9</generator>
+	<item>
+		<title>Create an IPython launcher on OS X</title>
+		<link>/blog/2013/10/02/create-ipython-launcher-osx/</link>
+		<comments>/blog/2013/10/02/create-ipython-launcher-osx/#comments</comments>
+		<pubDate>Wed, 02 Oct 2013 08:18:19 +0000</pubDate>
+		<dc:creator><![CDATA[Adam Chidlow]]></dc:creator>
+				<category><![CDATA[How-to]]></category>
+		<category><![CDATA[IPython]]></category>
+
+		<guid isPermaLink="false">https://hactar.ch/blog/?p=146</guid>
+		<description><![CDATA[This is just a quick how-to on creating a launcher for the IPython Qt console on Mac OS X. Open up AppleScript Editor and enter the following: do shell script "cd ~; /usr/local/bin/ipython qtconsole --pylab" Check that the path to ipython is correct for you by running which ipython from the terminal. You can also [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>This is just a quick how-to on creating a launcher for the <a href="http://ipython.org/">IPython</a> Qt console on Mac OS X.</p>
+<ol>
+<li>Open up AppleScript Editor and enter the following:
+<pre>do shell script "cd ~; /usr/local/bin/ipython qtconsole --pylab"</pre>
+<p>Check that the path to ipython is correct for you by running <code>which ipython</code> from the terminal. You can also change the starting directory if you wish.</li>
+<li>Save the script with the name IPython and file format Application in <code>/Applications/</code><a href="https://hactar.ch/blog/wp-content/uploads/2013/10/IPython-App.png"><img src="/blog/wp-content/uploads/2013/10/IPython-App-300x211.png" alt="IPython App" width="300" height="211" class="alignnone size-medium wp-image-151" srcset="/blog/wp-content/uploads/2013/10/IPython-App-300x211.png 300w, /blog/wp-content/uploads/2013/10/IPython-App.png 619w" sizes="(max-width: 300px) 100vw, 300px" /></a></li>
+<p></p>
+<li>You should now be able start an IPython Qt console from Spotlight or Launchpad, just like any other app. But you&#8217;ll notice two things: the Launchpad icon is the AppleScript icon, and after launch you&#8217;ll have both IPython and AppleScript icons in your dock. Let&#8217;s fix that.</li>
+<p></p>
+<li>The icon for the IPython Qt console resides in your Python distribution&#8217;s site-packages at <code>IPython/qt/console/resources/icon/IPythonConsole.svg</code>. We&#8217;ll need to convert it to an <code>.icns</code> file. I used <a href="http://iconverticons.com/online/">iConvert Online</a> to do this, and I&#8217;ve made the result available <a href="http://chidlow.id.au/files/IPythonConsole.icns">here</a></li>
+<p></p>
+<li>Replace <code>/Applications/IPython.app/Contents/Resources/applet.icns</code> with the .icns file from the previous step.</li>
+<p></p>
+<li>Edit <code>/Applications/IPython.app/Contents/Info.plist</code> and add the following lines after the first <code>&lt;dict&gt;</code>
+<pre>
+&lt;key&gt;LSBackgroundOnly&lt;/key&gt;
+&lt;string&gt;1&lt;/string&gt;
+</pre>
+</li>
+</ol>
+<p>That&#8217;s all. The only drawback to this method is that it doesn&#8217;t allow you to pin IPython to the dock and launch it from there, if anyone figures out how this can be done please let me know.</p>
+]]></content:encoded>
+			<wfw:commentRss>/blog/2013/10/02/create-ipython-launcher-osx/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Distributed Computing with IPython</title>
+		<link>/blog/2013/09/24/distributed-computing-with-ipython/</link>
+		<comments>/blog/2013/09/24/distributed-computing-with-ipython/#respond</comments>
+		<pubDate>Tue, 24 Sep 2013 14:15:44 +0000</pubDate>
+		<dc:creator><![CDATA[Adam Chidlow]]></dc:creator>
+				<category><![CDATA[Machine Learning]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[IPython]]></category>
+		<category><![CDATA[Python]]></category>
+		<category><![CDATA[scikit-learn]]></category>
+
+		<guid isPermaLink="false">/blog/?p=39</guid>
+		<description><![CDATA[Introduction The purpose of this post is to give a quick and straight-forward introduction to solving embarrassingly parallel problems in a distributed manner with IPython. If you only want to run parallel code on a single machine, you might want to consider Joblib instead, which has a much simpler interface. Full disclosure: I&#8217;m very much [&#8230;]]]></description>
+				<content:encoded><![CDATA[<h2>Introduction</h2>
+<p>The purpose of this post is to give a quick and straight-forward introduction to solving <a href="http://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly parallel</a> problems in a distributed manner with <a href="http://ipython.org/">IPython</a>. If you only want to run parallel code on a single machine, you might want to consider <a href="http://pythonhosted.org/joblib/">Joblib</a> instead, which has a much simpler interface.</p>
+<p><strong>Full disclosure:</strong> I&#8217;m very much a beginner in both IPython and distributed computing, so don&#8217;t take anything in this tutorial for gospel. Any and all constructive criticism is welcome in the comments!</p>
+<p>There are already a few <a href="http://warrickball.blogspot.com.au/2013/06/parallel-ipython.html">tutorials</a> <a href="http://minrk.github.io/scipy-tutorial-2011/">out</a> <a href="http://www.ianhowson.com/how-to-set-up-a-private-ipython-cluster.html">there</a> which may serve you better, and this is of course not going to be as complete as the <a href="http://ipython.org/ipython-doc/stable/parallel/index.html">IPython parallel documentation</a>, but I hope to help you get up and running as quickly as possible, and in particular also handle the case where at least one of the nodes is running Windows.</p>
+<p>Before we begin, here&#8217;s a quick word about what IPython actually is, taken <a href="http://ipython.org/ipython-doc/stable/overview.html">from the documentation</a>:</p>
+<blockquote><p>One of Python’s most useful features is its interactive interpreter. It allows for very fast testing of ideas without the overhead of creating test files as is typical in most programming languages. However, the interpreter supplied with the standard Python distribution is somewhat limited for extended interactive use.</p>
+<p>The goal of IPython is to create a comprehensive environment for interactive and exploratory computing. To support this goal, IPython has three main components:</p>
+<ul>
+<li>An enhanced interactive Python shell.</li>
+<li>A decoupled two-process communication model, which allows for multiple clients to connect to a computation kernel, most notably the web-based notebook.</li>
+<li>An architecture for interactive parallel computing.</li>
+</ul>
+</blockquote>
+<h2>Installation</h2>
+<p>First things first, you of course need to install IPython on all the machines you want to run it on. See <a href="http://ipython.org/ipython-doc/stable/install/install.html#installing-ipython-itself">here</a> for the instructions, and make sure to install the dependencies for IPython.parallel as well, which is a bit further down the page. I personally used <a href="https://www.enthought.com/">Enthough Canopyy</a> for installation on windows, <a href="http://brew.sh/">homebrew</a> and pip for OS X, and the <a href="http://neuro.debian.net/">NueroDebian</a> repositories on Linux. Whatever method you use, make sure to install the same version of IPython on all the computers.</p>
+<p>If you wish to run the final example in this tutorial, you&#8217;ll also need to install the <a href="http://www.scipy.org/">SciPy</a> stack and <a href="http://scikit-learn.org/stable/">scikit-learn</a>, but these are not essential for using IPython for distributed computing.</p>
+<h2>Set up</h2>
+<p>Once you&#8217;ve installed IPython, the first thing you&#8217;ll need to do is create a profile. Run the following command on all the computers you wish to use:</p>
+<pre>ipython profile create --parallel</pre>
+<p>This will create a default profile in the subdirectory <code>.ipython/profile_default/</code> of your home directory, and add the necessary configuration files for creating a cluster. IPython allows you to have multiple profiles, but for simplicity here we&#8217;re going to assume you want the cluster profile to be your default. You can <a href="http://ipython.org/ipython-doc/stable/config/overview.html">read more</a> about IPython profiles if you wish.</p>
+<p>At this point it is useful for us to introduce a bit of terminology. A controller node is the computer you want to run the computations <em>from</em>, and an engine node is a computer you want to run computations <em>on</em>. A node can be both a controller and an engine, but there should only be one controller in the cluster.</p>
+<p>So with that in mind, let&#8217;s run the following command on the controller node:</p>
+<pre>ipcontroller --reuse --ip=*</pre>
+<p>If you run into any connection problems later on in this tutorial, try substituting your controller&#8217;s external IP address for <code>*</code> in the above command. This address will of course need to be accessible by all engine nodes.</p>
+<p>The above command will create some files in <code>.ipython/profile_default/security/</code>. Copy those files to the same directory on your engine nodes. This is the reason we gave the <code>--reuse</code> flag to ipcontroller, without it you would need to copy these files over every time you wanted to start up your cluster. Note that this may have some negative security implications if you&#8217;re not on a trusted network, in which case you probably want to read the IPython documentation on the matter.</p>
+<p>Okay, now that you&#8217;ve copied over the generated security files, you&#8217;re ready to start your engines! On each engine node run the following:</p>
+<pre>ipengine</pre>
+<p>This will only start a single process though, if you have a multi-core machine then you&#8217;ll want to start as many <code>ipengine</code>s as you have cores. If your CPU has hyper-threading, you can start one <code>ipengine</code> per virtual core if you wish, but I&#8217;d suggest timing the execution of your program with and without using virtual cores just to be sure it&#8217;s improving performance.</p>
+<h2>No engine nodes running Windows?</h2>
+<p>If none of your engine nodes are running Windows then the simpler option for starting your cluster is to use IPython&#8217;s SSH support. Consult the documentation for more details.</p>
+<h2>Are we there yet?</h2>
+<p>Let&#8217;s check to make sure everything is working so far. Run the following commands:</p>
+<pre>In [1]: from IPython.parallel import Client
+
+In [2]: rc = Client()
+
+In [3]: print rc.ids
+Out[3]: [0, 1, 2, 3, 4, 5, 6, 7, 8]</pre>
+<p>A few things to note before we continue: the above should work regardless of whether it is run as a script, from an IPython shell or from a regular Python shell. However if you&#8217;re using a non-default profile and running it outside of the IPython shell you&#8217;ll need to pass the profile name as a keyword parameter to the <code>Client</code> constructor. Also, <code>rc.ids</code> should contain as many entries as <code>ipengine</code>s you&#8217;ve started.</p>
+<p>The <code>Client</code> class is your gateway to accessing your <code>ipcontroller</code> in Python code. From it we create &#8220;views&#8221; which allow us to actually execute things on our engine nodes. Let&#8217;s create the first type of view we&#8217;ll see in this tutorial, a &#8220;direct view&#8221;:</p>
+<pre>In [4]: dview = rc[:]</pre>
+<p>This creates a direct view that uses all the engine nodes in our cluster. Let&#8217;s run something on them:</p>
+<pre>In [5]: def square(x):
+   ...:     return x**2
+   ...: 
+
+In [6]: squares = dview.map_sync(square, range(20))
+
+In [7]: print squares
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361]</pre>
+<p>What has happened above is the function <code>square</code> was sent to each node, along with an equal portion of the input. Since we called <code>dview.map_sync()</code> instead of <code>dview.map_async()</code> it is a blocking call for the client and the result is returned directly, which in this case we assigned to <code>squares</code>.</p>
+<p>Here is an example using <code>dview.map_async()</code> instead:</p>
+<pre>In [8]: import time
+
+In [9]: def stall(x):
+   ...:     time.sleep(x)
+   ...:     return x
+   ...: 
+
+In [10]: ar = dview.map_async(stall, [5] * 8)</pre>
+<p>The above call returns immediately with an <code>AsyncResult</code> object. We can do a non-blocking check to see if the results are ready yet:</p>
+<pre>In [11]: ar.ready()
+Out[11]: True</pre>
+<p>Hmmmm&#8230; that didn&#8217;t feel like 5 seconds already, but okay. Lets get our results!</p>
+<pre>In [12]: ar.result
+[0:apply]: 
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last) in ()
+ in stall(x)
+NameError: global name 'time' is not defined
+
+[2:apply]: 
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last) in ()
+ in stall(x)
+NameError: global name 'time' is not defined
+
+[3:apply]: 
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last) in ()
+ in stall(x)
+NameError: global name 'time' is not defined
+
+[4:apply]: 
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last) in ()
+ in stall(x)
+NameError: global name 'time' is not defined
+
+... 4 more exceptions ...</pre>
+<p>Ah, that&#8217;s why it was so quick. This brings us to an important point on distributed programming with IPython: code dependencies are not transferred for you! This includes modules, functions, and variables</p>
+<h2>Distributing data and code</h2>
+<p>Let&#8217;s fix things so our previous example works:</p>
+<pre>In [13]: with dview.sync_imports():
+    ...:     import time
+    ...:     
+importing time on engine(s)
+
+In [14]: ar = dview.map_async(stall, [5] * 8)
+
+In [15]: ar.ready()
+Out[15]: False
+
+In [16]: ar.wait()
+
+In [17]: results = ar.result
+
+In [18]: print results
+[5, 5, 5, 5, 5, 5, 5, 5]</pre>
+<p>Much better. The <code>dview.sync_imports()</code> context manager executes import statements on all engines. The <code>wait()</code> call does what you&#8217;d expect: blocks until the results are ready.</p>
+<p>Here&#8217;s how we send variables to engines:</p>
+<pre>In [19]: def add_x(i):
+    ...:     return x + i
+    ...: 
+
+In [20]: dview.push(dict(x=5), block=True)
+Out[20]: [None, None, None, None, None, None, None, None]
+
+In [21]: print dview.map_sync(add_x, range(5))
+Out[21]: [5, 6, 7, 8, 9]</pre>
+<p>We&#8217;ll also need to send any local functions:</p>
+<pre>In [22]: def square_and_add_x(i):
+    ...:     return add_x(i**2)
+    ...: 
+
+In [23]: dview.push(dict(add_x=add_x), block=True)
+Out[23]: [None, None, None, None, None, None, None, None]
+
+In [24]: print dview.map_sync(square_and_add_x, [1,2,2,3,5,8])
+[6, 9, 9, 14, 30, 69]</pre>
+<h2>Load balancing</h2>
+<p>As was touched on above, a direct view splits the input into equal sized chunks and distributes them evenly across the running <code>ipengine</code>s. For a homogeneous cluster this isn&#8217;t a problem, but what if some nodes are faster than others? The good news is, IPython also features load balancing! And it&#8217;s just as easy to use as the direct view. Here&#8217;s how we create a load balancing view over all engines:</p>
+<pre>In [25]: lview = rc.load_balanced_view()
+
+In [26]: lview.map_sync(square_and_add_x, xrange(5))
+Out[26]: [5, 6, 9, 14, 21]</pre>
+<p>And that&#8217;s all there is to it! Neat, huh? Of note here is that even though we pushed the variable <code>x</code> and the function <code>add_x()</code> to the engines via the direct view, they were still available using the load balanced view.</p>
+<h2>A machine learning example</h2>
+<p>Let&#8217;s finish up this tutorial with a real world example. Cross-validation of hyper-parameters as used in machine learning is an example of an embarrassingly parallel problem. This can be particularly time consuming, so throwing as many cores as possible at the problem makes sense. Unlike our previous examples, we&#8217;ll be running this as a standalone Python script. See the code comments for explanations of a few new features:</p>
+<p><script src="https://gist.github.com/achidlow/6700768.js"></script></p>
+<p>Running the above script gives the following output on my machine:</p>
+<pre>
+importing numpy on engine(s)
+importing svm from sklearn on engine(s)
+in sync results 
+
+Running 150 tasks:
+    Done   72 out of  150 | elapsed:    5.3s remaining:    5.8s
+    Done  138 out of  150 | elapsed:   10.3s remaining:    0.9s
+    Done  150 out of  150 | elapsed:   11.3s remaining:    0.0s
+
+Parallel speedup: 775%
+
+Best: C = 1000000.0, gamma = 0.0001, err = 2.0%
+
+[[ 100.    100.    100.    100.    100.    100.    100.    100.    100.  ]
+ [ 100.    100.    100.     92.     12.      6.    100.    100.    100.  ]
+ [ 100.    100.     79.33   10.      2.67    5.33   11.33   49.33   63.33]
+ [ 100.     78.67   10.      4.      4.      6.     11.33   48.     63.33]
+ [  78.     10.      4.      3.33    4.67    6.67   11.33   48.     63.33]
+ [  10.      4.      3.33    4.67    6.67    6.67   11.33   48.     63.33]
+ [   4.      3.33    3.33    4.67    7.33    6.67   11.33   48.     63.33]
+ [   3.33    3.33    2.67    4.67    7.33    6.67   11.33   48.     63.33]
+ [   3.33    2.      3.33    6.67    7.33    6.67   11.33   48.     63.33]
+ [   4.      4.      4.67    6.      7.33    6.67   11.33   48.     63.33]
+ [   4.67    4.      6.      6.      7.33    6.67   11.33   48.     63.33]]
+
+Total time:   11.3s
+</pre>
+<h2>That&#8217;s all folks!</h2>
+<p>Thanks for reading my blog post, and I hope it&#8217;s helped. Feel free to leave any questions or constructive criticism as a comment.</p>
+]]></content:encoded>
+			<wfw:commentRss>/blog/2013/09/24/distributed-computing-with-ipython/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Welcome</title>
+		<link>/blog/2013/09/24/welcome/</link>
+		<comments>/blog/2013/09/24/welcome/#respond</comments>
+		<pubDate>Tue, 24 Sep 2013 13:34:01 +0000</pubDate>
+		<dc:creator><![CDATA[Adam Chidlow]]></dc:creator>
+				<category><![CDATA[Announcements]]></category>
+
+		<guid isPermaLink="false">/blog/?p=23</guid>
+		<description><![CDATA[As you have probably already gathered, I&#8217;ve decided to start a blog. This is something I&#8217;ve been meaning to do for quite some time. I expect to be posting mostly about artificial intelligence, mathematics &#38; statistics, computer science, programming, etc.]]></description>
+				<content:encoded><![CDATA[<p>As you have probably already gathered, I&#8217;ve decided to start a blog. This is something I&#8217;ve been meaning to do for quite some time. I expect to be posting mostly about artificial intelligence, mathematics &amp; statistics, computer science, programming, etc.</p>
+]]></content:encoded>
+			<wfw:commentRss>/blog/2013/09/24/welcome/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

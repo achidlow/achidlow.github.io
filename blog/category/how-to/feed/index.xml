@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>How-to &#8211; Ghost in the Machine</title>
+	<atom:link href="/blog/category/how-to/feed/" rel="self" type="application/rss+xml" />
+	<link>/blog</link>
+	<description>A blog by Adam Chidlow</description>
+	<lastBuildDate>Mon, 23 Jun 2014 07:58:01 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.5.9</generator>
+	<item>
+		<title>Create an IPython launcher on OS X</title>
+		<link>/blog/2013/10/02/create-ipython-launcher-osx/</link>
+		<comments>/blog/2013/10/02/create-ipython-launcher-osx/#comments</comments>
+		<pubDate>Wed, 02 Oct 2013 08:18:19 +0000</pubDate>
+		<dc:creator><![CDATA[Adam Chidlow]]></dc:creator>
+				<category><![CDATA[How-to]]></category>
+		<category><![CDATA[IPython]]></category>
+
+		<guid isPermaLink="false">https://hactar.ch/blog/?p=146</guid>
+		<description><![CDATA[This is just a quick how-to on creating a launcher for the IPython Qt console on Mac OS X. Open up AppleScript Editor and enter the following: do shell script "cd ~; /usr/local/bin/ipython qtconsole --pylab" Check that the path to ipython is correct for you by running which ipython from the terminal. You can also [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>This is just a quick how-to on creating a launcher for the <a href="http://ipython.org/">IPython</a> Qt console on Mac OS X.</p>
+<ol>
+<li>Open up AppleScript Editor and enter the following:
+<pre>do shell script "cd ~; /usr/local/bin/ipython qtconsole --pylab"</pre>
+<p>Check that the path to ipython is correct for you by running <code>which ipython</code> from the terminal. You can also change the starting directory if you wish.</li>
+<li>Save the script with the name IPython and file format Application in <code>/Applications/</code><a href="https://hactar.ch/blog/wp-content/uploads/2013/10/IPython-App.png"><img src="/blog/wp-content/uploads/2013/10/IPython-App-300x211.png" alt="IPython App" width="300" height="211" class="alignnone size-medium wp-image-151" srcset="/blog/wp-content/uploads/2013/10/IPython-App-300x211.png 300w, /blog/wp-content/uploads/2013/10/IPython-App.png 619w" sizes="(max-width: 300px) 100vw, 300px" /></a></li>
+<p></p>
+<li>You should now be able start an IPython Qt console from Spotlight or Launchpad, just like any other app. But you&#8217;ll notice two things: the Launchpad icon is the AppleScript icon, and after launch you&#8217;ll have both IPython and AppleScript icons in your dock. Let&#8217;s fix that.</li>
+<p></p>
+<li>The icon for the IPython Qt console resides in your Python distribution&#8217;s site-packages at <code>IPython/qt/console/resources/icon/IPythonConsole.svg</code>. We&#8217;ll need to convert it to an <code>.icns</code> file. I used <a href="http://iconverticons.com/online/">iConvert Online</a> to do this, and I&#8217;ve made the result available <a href="http://chidlow.id.au/files/IPythonConsole.icns">here</a></li>
+<p></p>
+<li>Replace <code>/Applications/IPython.app/Contents/Resources/applet.icns</code> with the .icns file from the previous step.</li>
+<p></p>
+<li>Edit <code>/Applications/IPython.app/Contents/Info.plist</code> and add the following lines after the first <code>&lt;dict&gt;</code>
+<pre>
+&lt;key&gt;LSBackgroundOnly&lt;/key&gt;
+&lt;string&gt;1&lt;/string&gt;
+</pre>
+</li>
+</ol>
+<p>That&#8217;s all. The only drawback to this method is that it doesn&#8217;t allow you to pin IPython to the dock and launch it from there, if anyone figures out how this can be done please let me know.</p>
+]]></content:encoded>
+			<wfw:commentRss>/blog/2013/10/02/create-ipython-launcher-osx/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+	</channel>
+</rss>
