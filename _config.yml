@@ -110,3 +110,11 @@ plugins:
 
 jekyll-mentions:
     base_url: https://github.com
+
+exclude:
+  - README.md
+  - Gemfile 
+  - Gemfile.lock  
+  - Rakefile
+  - travis.sh
+  
