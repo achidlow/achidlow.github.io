@@ -54,18 +54,12 @@ github: achidlow
 email: hello@chidlow.net
 
 #authors:
-#    johndoe:
-#        name: John Doe
-        #bio: A Man who travels the world eating noodles
-        #external-image: false
-        #picture: assets/images/profile.jpg
-        #twitter: johndoe
-    #jamesfoster:
-        #name: James Foster
-        #bio: A Man who develops software with coffee
-        #external-image: false
-        #picture: assets/images/james.jpg
-        #twitter: jamesfoster
+#    adam:
+#        name: Adam Chidlow
+#        bio: Software Engineer & Applied Mathematician
+#        external-image: false
+#        picture: assets/images/profile.jpg
+#        twitter: johndoe
 
 # do you want a larger site? change the option below
 # options: [normal, large] | default: normal
@@ -80,7 +74,7 @@ width: large
 #projects: true
 
 # if you don't need "about" or "blog", comment them out below
-#about: true
+about: true
 #blog: true
 #show-feed: true
 
