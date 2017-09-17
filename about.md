@@ -8,7 +8,7 @@ _{{ site.description }}._
 
 ## Career & Qualifications
 
-Since obtaining his Bachelor of Science, double majoring in Computer Science & Mathematics and graduating with Distinction, he has worked at companies ranging startups to multinational technology verticals, working on teams of varying size ranging from being the sole developer to teams of 20+ people spanning multiple continents.
+Since obtaining his Bachelor of Science, double majoring in Computer Science & Mathematics and graduating with Distinction, Adam has worked at companies ranging startups to multinational technology verticals, working on teams of varying size ranging from being the sole developer to teams of 20+ people spanning multiple continents.
 
 He is a programming polyglot, with various levels of professional experience in Python, C, C++, C#, Objective-C, Java, Javacript, Fortran, Maple, MATLAB, CUDA, and x86 Assembly. He has developed for Linux and Microsoft Windows, for desktop and for the web. His preference is for developing in Python, running on Linux and with a bit of C++/Cython thrown in as required for performance critical components.
 
