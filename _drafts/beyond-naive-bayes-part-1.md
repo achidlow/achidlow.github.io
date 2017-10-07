@@ -37,23 +37,19 @@ In a Bayes net, each variable/node is associated with a conditional probability 
 
  $$P(X_1,...,X_n)=\prod_{i=1}^n P(X_i \vert \mathrm{Pa}_{X_i}^\mathcal{G})$$
 
-
 Which is known as the chain-rule for Bayesian networks, in reference to to the more general chain-rule for probability, which states that the following holds for _any_ distribution:
 
 $$P(X_1,...,X_n) = \prod_{i=1}^n P(X_i \vert X_1,...,X_{i-1})$$
 
-From these two equations we can deduce that a Bayesian network is merely a re-parametrisation of a probability distribution, and as such the acyclicity constraint does not restrict what distributions it can encode. We can convince ourselves of this through a simple inductive argument:
+If we can equate the two chain rules by showing that $$\mathrm{Pa}_{X_i}^\mathcal{G} = \{X_1,...,X_{i-1}\}$$ is a valid Bayes net, then we can deduce that a Bayesian network is merely a re-parametrisation of a probability distribution, and as such the acyclicity constraint does not restrict what distributions it can encode. We can convince ourselves of this through a simple inductive argument:
 
 Consider the base case of a single variable. This is trivially expressed as a single-node graph, with the local distribution simply being the univariate distribution for that variable. Now assume we have a valid Bayes net for a distribution of $$N$$ variables. To add another variable to the distribution, we place it as a new node in the graph. If we don't want to make any assumptions about the independencies in the global distribution, which would restrict what we can encode, we need to allow it to be parametrised by all the other variables in the distribution, which is achieved by adding directed edges to it from every other node in the graph. Since there are no outgoing edges from the new node, the graph remains acyclic, and thus a valid Bayes net for the $$N+1$$ variables &#8718;.
 
-In other words, any distribution can be encoded as a Bayes net with the structure of a [transitive tournament](https://en.wikipedia.org/wiki/Tournament_(graph_theory)) (i.e. an acyclic orientation of the complete graph), represented here for five variables, in topological order:
+In other words, any distribution can be encoded as a Bayes net with the structure of a [transitive tournament](https://en.wikipedia.org/wiki/Tournament_(graph_theory)) (i.e. an acyclic orientation of the complete graph), represented here in topological order for five variables:
 
 ![complete directed acyclic graph of five nodes, in topological order](/assets/images/K5-DAG-topo-order.png){:class="centred-image"}
 
-Hopefully the above drawing also makes clearer the relationship between the chain rules of probability and of Bayes nets. That is, by letting $$\mathrm{Pa}_{X_i}^\mathcal{G} = \{X_1,...,X_{i-1}\}$$, we can satisfy the equality:
-
-$$\prod_{i=1}^n P(X_i \vert X_1,...,X_{i-1}) = \prod_{i=1}^n P(X_i \vert \mathrm{Pa}_{X_i}^\mathcal{G})$$
-
+{::comment}
 Consequences:
 - any two variables that do not have a directed path between them are conditionally independent a priori.
 
@@ -65,11 +61,6 @@ Naive Bayes is a family of bayesian classifiers that has a very natural interpre
 
 <div style="clear: both;"></div>
 
-### Footnotes
-
-[^1]: For an interesting example of this see _[Sachs et al. (2005)](http://science.sciencemag.org/content/sci/308/5721/523.full.pdf)_, which applied Bayesian network learning to protein signalling pathways, predicting a novel casual relationship which was then experimentally verified.
-
-{::comment}
 _In this post we'll show how to make Naive Bayes less naive by introducing tree structured dependencies using the Chow-Liu algorithm, resulting in a model with lower bias. We'll also use this as a very brief introduction to the broader class of probabilistic graphical models._
 
 Talking points:
@@ -84,3 +75,7 @@ Talking points:
 - 
 
 {:/comment}
+
+### Footnotes
+
+[^1]: For an interesting example of this see _[Sachs et al. (2005)](http://science.sciencemag.org/content/sci/308/5721/523.full.pdf)_, which applied Bayesian network learning to protein signalling pathways, predicting a novel casual relationship which was then experimentally verified.
