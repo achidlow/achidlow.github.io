@@ -12,10 +12,10 @@ tags:
 # star: true
 author: adam
 
-description: Improving predictions and learning structure through relaxed independence assumptions
+description: A brief and practical introduction to Probabilistic Graphical Models through augmenting Naive Bayes with the Chow-Liu algorithm
 ---
 
-_This short series of posts aims to be a brief introduction to the framework of probabilistic graphical models by using the familiar Naive Bayes as a springboard to the more general class of Bayesian network structures._
+_This short series of posts aims to be a brief and practical introduction to the framework of probabilistic graphical models by using the familiar Naive Bayes as a springboard to the more general class of Bayesian network structures._
 
 ## Why Probabilistic Graphical Models?
 
@@ -33,7 +33,7 @@ Finally, from a data science perspective, PGMs are very good at handling "messy"
 
 A Bayesian network is one of the two most common types of graphical models. It is a directed acyclic graph (DAG), where each variable in the distribution is an individual node on the graph. The other most common type of graphical model is a Markov network, which is undirected. Partially directed or "Hybrid" networks are also possible, and there are other representations used in certain algorithms that might map multiple variables to a single node, but generally when we're dealing with a PGM as either an input or an output it will be a Bayes net, Markov net, or some hybrid of the two.
 
-In a Bayes net, each variable/node is associated with a conditional probability distribution, also known as the local probabilistic model. It is a key constraint that the only other variables in the local distribution are the parents of the node. So if we let $$P(X_1,...,X_n)$$ be the distribution defined by any Bayes net with a given structure $$\mathcal{G}$$, and denote by $$\mathrm{Pa}_{X_i}^\mathcal{G}$$ the parents of node $$X_i$$ then it follows that:
+In a Bayes net, each variable/node is associated with a conditional probability distribution (CPD), also known as the local probabilistic model. It is a key constraint that the only other variables in the local distribution are the parents of the node. So if we let $$P(X_1,...,X_n)$$ be the distribution defined by any Bayes net with a given structure $$\mathcal{G}$$, and denote by $$\mathrm{Pa}_{X_i}^\mathcal{G}$$ the parents of node $$X_i$$ then it follows that the joint distribution can be written as:
 
  $$P(X_1,...,X_n)=\prod_{i=1}^n P(X_i \vert \mathrm{Pa}_{X_i}^\mathcal{G})$$
 
@@ -45,9 +45,11 @@ If we can equate the two chain rules by showing that $$\mathrm{Pa}_{X_i}^\mathca
 
 Consider the base case of a single variable. This is trivially expressed as a single-node graph, with the local distribution simply being the univariate distribution for that variable. Now assume we have a valid Bayes net for a distribution of $$N$$ variables. To add another variable to the distribution, we place it as a new node in the graph. If we don't want to make any assumptions about the independencies in the global distribution, which would restrict what we can encode, we need to allow it to be parametrised by all the other variables in the distribution, which is achieved by adding directed edges to it from every other node in the graph. Since there are no outgoing edges from the new node, the graph remains acyclic, and thus a valid Bayes net for the $$N+1$$ variables &#8718;.
 
-In other words, any distribution can be encoded as a Bayes net with the structure of a [transitive tournament](https://en.wikipedia.org/wiki/Tournament_(graph_theory)) (i.e. an acyclic orientation of the complete graph), represented here in topological order for five variables:
+In other words, any distribution can be encoded as a Bayes net with the structure of a transitive tournament (i.e. an acyclic orientation of the complete graph), represented here in topological order for five variables:
 
 ![complete directed acyclic graph of five nodes, in topological order](/assets/images/K5-DAG-topo-order.png){:class="centred-image"}
+
+However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$\mathcal{G}$$ for the distribution $$P$$ that has the minimum number of edges. Such a graph is called a minimal I-map (independency map) for $$P$$, and is a relation of the [conditional independencies](https://en.wikipedia.org/wiki/Conditional_independence) that hold in $$P$$ and those that are induced by $$\mathcal{G}$$. 
 
 {::comment}
 Consequences:
@@ -66,13 +68,14 @@ _In this post we'll show how to make Naive Bayes less naive by introducing tree 
 Talking points:
 - Naive Bayes isn't so much an algorithm as it is a network structure 
 - Naive Bayes owes its name to the very strong independence assumptions it makes about features. Specifically it assumes that all the features are conditionally independent given the class.
-- Bayesian networks are probabilistic graphical models with directed edges (undirected is Markov, hybrids are possible and even common)
-- A general distribution P can be represented using the chain rule for probabilities. This form makes no assumptions about indepedencies.
-- Chain rule for bayesian networks
-- trivially every network can be represented K_n
 - narrow down the independecies (however in empirical distribution these are never there)
 - perfect maps (not always possible with Bayes Nets)
-- 
+
+As a quick reminder, conditional independence is when two random variables are independent given a third, written as $$X \perp Y \vert Z$$:
+
+$$ X \perp_{P} Y \vert Z \iff P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$
+
+More formally, if $$I(\mathcal{P})$$ is the set of conditional independencies that hold in a distribution $$\mathcal{P}$$, and $$P_{\mathcal{G}}$$ is the joint distribution induced by a Bayesian network with graph $$\mathcal{G}$$, then $$\mathcal{G}$$ is an I-map for $$P$$ if and only if $$I(P_{\mathcal{G}}) \subseteq I(P)$$, and is a minimal I-map if and only if the removal of any edge would render it no longer an I-map. Notice that we did not require $$I(P_{\mathcal{G}}) = I(P)$$, so even if an I-map is minimal, there may still be conditional independencies which hold in $$P$$ but are not asserted by $$\mathcal{G}$$. The existence which is called a perfect I-map, and may not always exist as a Bayesian network for a given distribution.
 
 {:/comment}
 
