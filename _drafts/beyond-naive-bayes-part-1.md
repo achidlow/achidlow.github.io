@@ -33,15 +33,15 @@ Finally, from a data science perspective, PGMs are very good at handling "messy"
 
 A Bayesian network is one of the two most common types of graphical models. It is a directed acyclic graph (DAG), where each variable in the distribution is an individual node on the graph. The other most common type of graphical model is a Markov network, which is undirected. Partially directed or "Hybrid" networks are also possible, and there are other representations used in certain algorithms that might map multiple variables to a single node, but generally when we're dealing with a PGM as either an input or an output it will be a Bayes net, Markov net, or some hybrid of the two.
 
-In a Bayes net, each variable/node is associated with a conditional probability distribution (CPD), also known as the local probabilistic model. It is a key constraint that the only other variables in the local distribution are the parents of the node. So if we let $$P(X_1,...,X_n)$$ be the distribution defined by any Bayes net with a given structure $$\mathcal{G}$$, and denote by $$\mathrm{Pa}_{X_i}^\mathcal{G}$$ the parents of node $$X_i$$ then it follows that the joint distribution can be written as:
+In a Bayes net, each variable/node is associated with a conditional probability distribution (CPD), also known as the local probabilistic model. It is a key constraint that the only other variables in the local distribution are the parents of the node. So if we let $$P(X_1,...,X_n)$$ be the distribution defined by any Bayes net with a given structure $$G$$, and denote by $$\mathrm{Pa}_{X_i}^G$$ the parents of node $$X_i$$ then it follows that the joint distribution can be written as:
 
- $$P(X_1,...,X_n)=\prod_{i=1}^n P(X_i \vert \mathrm{Pa}_{X_i}^\mathcal{G})$$
+ $$P(X_1,...,X_n)=\prod_{i=1}^n P(X_i \vert \mathrm{Pa}_{X_i}^G)$$
 
 Which is known as the chain-rule for Bayesian networks, in reference to to the more general chain-rule for probability, which states that the following holds for _any_ distribution:
 
 $$P(X_1,...,X_n) = \prod_{i=1}^n P(X_i \vert X_1,...,X_{i-1})$$
 
-If we can equate the two chain rules by showing that $$\mathrm{Pa}_{X_i}^\mathcal{G} = \{X_1,...,X_{i-1}\}$$ is a valid Bayes net, then we can deduce that a Bayesian network is merely a re-parametrisation of a probability distribution, and as such the acyclicity constraint does not restrict what distributions it can encode. We can convince ourselves of this through a simple inductive argument:
+If we can equate the two chain rules by showing that $$\mathrm{Pa}_{X_i}^G = \{X_1,...,X_{i-1}\}$$ is a valid Bayes net, then we can deduce that a Bayesian network is merely a re-parametrisation of a probability distribution, and as such the acyclicity constraint does not restrict what distributions it can encode. We can convince ourselves of this through a simple inductive argument:
 
 Consider the base case of a single variable. This is trivially expressed as a single-node graph, with the local distribution simply being the univariate distribution for that variable. Now assume we have a valid Bayes net for a distribution of $$N$$ variables. To add another variable to the distribution, we place it as a new node in the graph. If we don't want to make any assumptions about the independencies in the global distribution, which would restrict what we can encode, we need to allow it to be parametrised by all the other variables in the distribution, which is achieved by adding directed edges to it from every other node in the graph. Since there are no outgoing edges from the new node, the graph remains acyclic, and thus a valid Bayes net for the $$N+1$$ variables &#8718;.
 
@@ -49,7 +49,7 @@ In other words, any distribution can be encoded as a Bayes net with the structur
 
 ![complete directed acyclic graph of five nodes, in topological order](/assets/images/K5-DAG-topo-order.png){:class="centred-image"}
 
-However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$\mathcal{G}$$ for the distribution $$P$$ that has the minimum number of edges. Such a graph is called a minimal I-map (independency map) for $$P$$, and is a relation of the [conditional independencies](https://en.wikipedia.org/wiki/Conditional_independence) that hold in $$P$$ and those that are induced by $$\mathcal{G}$$. 
+However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$G$$ for the distribution $$P$$ that has the minimum number of edges. Such a graph is called a minimal I-map (independency map) for $$P$$, and is a relation of the [conditional independencies](https://en.wikipedia.org/wiki/Conditional_independence) that hold in $$P$$ and those that are induced by $$G$$. 
 
 {::comment}
 Consequences:
@@ -75,7 +75,7 @@ As a quick reminder, conditional independence is when two random variables are i
 
 $$ X \perp_{P} Y \vert Z \iff P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$
 
-More formally, if $$I(\mathcal{P})$$ is the set of conditional independencies that hold in a distribution $$\mathcal{P}$$, and $$P_{\mathcal{G}}$$ is the joint distribution induced by a Bayesian network with graph $$\mathcal{G}$$, then $$\mathcal{G}$$ is an I-map for $$P$$ if and only if $$I(P_{\mathcal{G}}) \subseteq I(P)$$, and is a minimal I-map if and only if the removal of any edge would render it no longer an I-map. Notice that we did not require $$I(P_{\mathcal{G}}) = I(P)$$, so even if an I-map is minimal, there may still be conditional independencies which hold in $$P$$ but are not asserted by $$\mathcal{G}$$. The existence which is called a perfect I-map, and may not always exist as a Bayesian network for a given distribution.
+More formally, if $$I(\mathcal{P})$$ is the set of conditional independencies that hold in a distribution $$\mathcal{P}$$, and $$P_{G}$$ is the joint distribution induced by a Bayesian network with graph $$G$$, then $$G$$ is an I-map for $$P$$ if and only if $$I(P_{G}) \subseteq I(P)$$, and is a minimal I-map if and only if the removal of any edge would render it no longer an I-map. Notice that we did not require $$I(P_{G}) = I(P)$$, so even if an I-map is minimal, there may still be conditional independencies which hold in $$P$$ but are not asserted by $$G$$. The existence which is called a perfect I-map, and may not always exist as a Bayesian network for a given distribution.
 
 {:/comment}
 
