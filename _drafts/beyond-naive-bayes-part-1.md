@@ -33,7 +33,7 @@ Finally, from a data science perspective, PGMs are very good at handling "messy"
 
 A Bayesian network is one of the two most common types of graphical models. It is a directed acyclic graph (DAG), where each variable in the distribution is an individual node on the graph. The other most common type of graphical model is a Markov network, which is undirected. Partially directed or "Hybrid" networks are also possible, and there are other representations used in certain algorithms that might map multiple variables to a single node, but generally when we're dealing with a PGM as either an input or an output it will be a Bayes net, Markov net, or some hybrid of the two.
 
-In a Bayes net, each variable/node is associated with a conditional probability distribution (CPD), also known as the local probabilistic model. It is a key constraint that the only other variables in the local distribution are the parents of the node. So if we let $$P(X_1,...,X_n)$$ be the distribution defined by any Bayes net with a given structure $$G$$, and denote by $$\mathrm{Pa}_{X_i}^G$$ the parents of node $$X_i$$ then it follows that the joint distribution can be written as:
+In a Bayes net, each variable/node is associated with a conditional probability distribution (CPD), also known as the local probabilistic model. It is a key constraint that the only other variables in the local distribution are the parents of the node. So if we let $$P(X_1,...,X_n)$$ be the joint distribution defined by any Bayes net with a given structure $$G$$, and denote by $$\mathrm{Pa}_{X_i}^G$$ the parents of node $$X_i$$ then it follows that:
 
  $$P(X_1,...,X_n)=\prod_{i=1}^n P(X_i \vert \mathrm{Pa}_{X_i}^G)$$
 
@@ -41,18 +41,13 @@ Which is known as the chain-rule for Bayesian networks, in reference to to the m
 
 $$P(X_1,...,X_n) = \prod_{i=1}^n P(X_i \vert X_1,...,X_{i-1})$$
 
-If we can equate the two chain rules by showing that $$\mathrm{Pa}_{X_i}^G = \{X_1,...,X_{i-1}\}$$ is a valid Bayes net, then we can deduce that a Bayesian network is merely a re-parametrisation of a probability distribution, and as such the acyclicity constraint does not restrict what distributions it can encode. We can convince ourselves of this through a simple inductive argument:
+Putting these two equations together, we can show that a Bayesian network is merely a re-parametrisation of a probability distribution. We can convince ourselves of this through a simple constructive argument: taking the CPDs from the chain rule for probability with some fixed but arbitrary ordering as the local distributions, we then connect the graph according to $$\mathrm{Pa}_{X_i}^G = \{X_1,...,X_{i-1}\}$$. The graph then has a topological ordering of $$X_1,...,X_n$$ and is therefore acyclic, satisfying the definition of a Bayesian network.
 
-Consider the base case of the first variable, $$X_1$$. This is trivially expressed as a single-node graph, with local distribution $$P(X_1)$$ from the chain rule. Now assume we have a valid Bayes net for $$\{X_1,...,X_i\}$$. To include $$X_{i+1}$$, we place it as a new node in the graph. If we don't want to make any assumptions about the independencies in the joint distribution, which would restrict what we can encode, we need to allow it to be parametrised by $$\{X_1,...,X_i\}$$, which is achieved by adding directed edges to it from every other node in the graph and using $$P(X_{i+1} \vert X_1,...,X_i)$$ as the local distribution from the chain rule. Since there are no outgoing edges from the new node, the graph remains acyclic, and thus we have a valid Bayes net &#8718;.
-
-In other words, any distribution can be encoded as a Bayes net with the structure of a transitive tournament (i.e. an acyclic orientation of the complete graph), represented here in topological order for five variables:
+In other words, any distribution can be encoded as a Bayes net with the structure of a transitive tournament (i.e. an acyclic orientation of the complete graph), represented here for five variables:
 
 ![complete directed acyclic graph of five nodes, in topological order](/assets/images/K5-DAG-topo-order.png){:class="centred-image"}
 
-However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$G$$ for the distribution $$P$$ that has the minimum number of edges. Such a graph is called a minimal I-map (independency map) for $$P$$, and is a relation of the conditional independencies that hold in $$P$$ and those that are induced by $$G$$. 
-
-As a quick reminder, two random variables $$X$$ and $$Y$$ are conditionally independent given $$Z$$, written as $$X \perp Y \vert Z$$, if and only if $$P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$.
-
+However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$G$$ for the distribution $$P$$ that has the minimum number of edges possible, whilst still being able to encode $$P$$. Such a graph is called a minimal I-map (independency map) for $$P$$, which is a relation of the conditional independencies[^2] that hold in $$P$$ and those that are induced by $$G$$. 
 
 {::comment}
 Consequences:
@@ -81,3 +76,5 @@ More formally, if $$I(\mathcal{P})$$ is the set of conditional independencies th
 ### Footnotes
 
 [^1]: For an interesting example of this see _[Sachs et al. (2005)](http://science.sciencemag.org/content/sci/308/5721/523.full.pdf)_, which applied Bayesian network learning to protein signalling pathways, predicting a novel casual relationship which was then experimentally verified.
+
+[^2]: As a quick reminder, two random variables $$X$$ and $$Y$$ are conditionally independent given $$Z$$, written as $$X \perp Y \vert Z$$, if and only if $$P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$.
