@@ -62,7 +62,7 @@ P(D, T_1, T_2) &= P(D) P(T_1, T_2 \vert D) \\
 $$
 </p>
 
-Which results in the network:
+Which results in the simple network:
 
 ![bayesian network example](/assets/images/3Node-BayesNet-Diagnostic.png){:class="centred-image"}
 
