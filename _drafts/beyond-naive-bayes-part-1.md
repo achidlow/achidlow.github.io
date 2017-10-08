@@ -62,7 +62,7 @@ P(D, T_1, T_2) &= P(D) P(T_1, T_2 \vert D) \\
 $$
 </p>
 
-Which results in the simple network:
+From which we can construct the simple network:
 
 ![bayesian network example](/assets/images/3Node-BayesNet-Diagnostic.png){:class="centred-image"}
 
@@ -78,7 +78,7 @@ Of further note is that we carefully phrased the definition of a minimal I-map, 
 
 ![naive bayes graphical structure](/assets/images/naive-bayes.png){:class="float-right"}
 
-Naive Bayes is a family of bayesian classifiers that has a very natural interpretation as a probabilistic graphical model. It is possibly the simplest such type of network
+Naive Bayes is a family of bayesian classifiers that have very natural interpretations as a probabilistic graphical models. It is possibly the simplest such type of network
 
 <div style="clear: both;"></div>
 
