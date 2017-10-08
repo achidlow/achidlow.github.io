@@ -43,13 +43,16 @@ $$P(X_1,...,X_n) = \prod_{i=1}^n P(X_i \vert X_1,...,X_{i-1})$$
 
 If we can equate the two chain rules by showing that $$\mathrm{Pa}_{X_i}^G = \{X_1,...,X_{i-1}\}$$ is a valid Bayes net, then we can deduce that a Bayesian network is merely a re-parametrisation of a probability distribution, and as such the acyclicity constraint does not restrict what distributions it can encode. We can convince ourselves of this through a simple inductive argument:
 
-Consider the base case of a single variable. This is trivially expressed as a single-node graph, with the local distribution simply being the univariate distribution for that variable. Now assume we have a valid Bayes net for a distribution of $$N$$ variables. To add another variable to the distribution, we place it as a new node in the graph. If we don't want to make any assumptions about the independencies in the global distribution, which would restrict what we can encode, we need to allow it to be parametrised by all the other variables in the distribution, which is achieved by adding directed edges to it from every other node in the graph. Since there are no outgoing edges from the new node, the graph remains acyclic, and thus a valid Bayes net for the $$N+1$$ variables &#8718;.
+Consider the base case of the first variable, $$X_1$$. This is trivially expressed as a single-node graph, with local distribution $$P(X_1)$$ from the chain rule. Now assume we have a valid Bayes net for $$\{X_1,...,X_i\}$$. To include $$X_{i+1}$$, we place it as a new node in the graph. If we don't want to make any assumptions about the independencies in the joint distribution, which would restrict what we can encode, we need to allow it to be parametrised by $$\{X_1,...,X_i\}$$, which is achieved by adding directed edges to it from every other node in the graph and using $$P(X_{i+1} \vert X_1,...,X_i)$$ as the local distribution from the chain rule. Since there are no outgoing edges from the new node, the graph remains acyclic, and thus we have a valid Bayes net &#8718;.
 
 In other words, any distribution can be encoded as a Bayes net with the structure of a transitive tournament (i.e. an acyclic orientation of the complete graph), represented here in topological order for five variables:
 
 ![complete directed acyclic graph of five nodes, in topological order](/assets/images/K5-DAG-topo-order.png){:class="centred-image"}
 
-However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$G$$ for the distribution $$P$$ that has the minimum number of edges. Such a graph is called a minimal I-map (independency map) for $$P$$, and is a relation of the [conditional independencies](https://en.wikipedia.org/wiki/Conditional_independence) that hold in $$P$$ and those that are induced by $$G$$. 
+However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$G$$ for the distribution $$P$$ that has the minimum number of edges. Such a graph is called a minimal I-map (independency map) for $$P$$, and is a relation of the conditional independencies that hold in $$P$$ and those that are induced by $$G$$. 
+
+As a quick reminder, two random variables $$X$$ and $$Y$$ are conditionally independent given $$Z$$, written as $$X \perp Y \vert Z$$, if and only if $$P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$.
+
 
 {::comment}
 Consequences:
@@ -70,10 +73,6 @@ Talking points:
 - Naive Bayes owes its name to the very strong independence assumptions it makes about features. Specifically it assumes that all the features are conditionally independent given the class.
 - narrow down the independecies (however in empirical distribution these are never there)
 - perfect maps (not always possible with Bayes Nets)
-
-As a quick reminder, conditional independence is when two random variables are independent given a third, written as $$X \perp Y \vert Z$$:
-
-$$ X \perp_{P} Y \vert Z \iff P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$
 
 More formally, if $$I(\mathcal{P})$$ is the set of conditional independencies that hold in a distribution $$\mathcal{P}$$, and $$P_{G}$$ is the joint distribution induced by a Bayesian network with graph $$G$$, then $$G$$ is an I-map for $$P$$ if and only if $$I(P_{G}) \subseteq I(P)$$, and is a minimal I-map if and only if the removal of any edge would render it no longer an I-map. Notice that we did not require $$I(P_{G}) = I(P)$$, so even if an I-map is minimal, there may still be conditional independencies which hold in $$P$$ but are not asserted by $$G$$. The existence which is called a perfect I-map, and may not always exist as a Bayesian network for a given distribution.
 
