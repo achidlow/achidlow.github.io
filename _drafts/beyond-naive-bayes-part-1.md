@@ -68,25 +68,33 @@ From which we can construct the simple network:
 
 Compare this with the expansion via the chain rule without the assumption of conditional independence, and the associated Bayes net structure.
 
-{::comment}
-Finding the set of conditional independencies that hold in a given graph structure is beyond the scope of this post unfortunately, but there are a few results that we should take note of to help with conceptualising Bayes nets. Firstly, as we noted in construction of a Bayes net from a general distribution, the ordering of the expansion was arbitrary. Thus even in the case of a distribution with no conditional independencies, there are multiple minimal I-maps. This holds true in general, there can be many possible I-maps for a given set of conditional independencies. We can view these sets as equivalence classes, inducing a relation over DAGs called I-equivalence. 
-
-Of further note is that we carefully phrased the definition of a minimal I-map, in that we did not require the conditional independencies that hold in the distribution to be exactly equal to those induced by the graph, which is known as a perfect I-map. Not all distributions have a Bayes net that is a perfect map. Usually this is the case when there is local structure in the CPDs, since Bayesian network structures only capture relationships at the variable level.
-{:/comment}
-
 ## Naive Bayes as a Bayesian network
 
-![naive bayes graphical structure](/assets/images/naive-bayes.png){:class="float-right"}
+Naive Bayes is a family of Bayesian classifiers that have very natural interpretations as probabilistic graphical models. It is defined by it's assumption of class-conditional independence. That is, if $$C$$ is the class random variable and $$X_1,...,X_n$$ are the features, then it assumes that $$X_i \perp \mathbf{X}_{-i}\ \vert\ C$$ [^3]. Which means we can write the joint probability as:
 
-Naive Bayes is a family of bayesian classifiers that have very natural interpretations as a probabilistic graphical models. It is possibly the simplest such type of network
+$$P(C,X_i,...,X_n) = P(C) \prod_i^n P(X_i \vert C)$$
 
-<div style="clear: both;"></div>
+From which we can construct the network:
+
+![naive bayes graphical structure](/assets/images/naive-bayes.png){:class="centred-image"}
+
+Note the difference here with the example disease network; in that case, there was good reason to assume the features were independent.
+
+### Footnotes
+
+[^1]: For an interesting example of this see _[Sachs et al. (2005)](http://science.sciencemag.org/content/sci/308/5721/523.full.pdf)_, which applied Bayesian network learning to protein signalling pathways, predicting a novel casual relationship which was then experimentally verified.
+
+[^2]: As a quick reminder, two random variables $$X$$ and $$Y$$ are conditionally independent given $$Z$$, written as $$X \perp Y\ \vert\ Z$$, if and only if $$P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$.
+
+[^3]: Using the shorthand notation $$\mathbf{X}_{-i} = \{X_j \vert i \neq j \}$$.
 
 {::comment}
 Consequences:
 - any two variables that do not have a directed path between them are conditionally independent a priori.
 
+Finding the set of conditional independencies that hold in a given graph structure is beyond the scope of this post unfortunately, but there are a few results that we should take note of to help with conceptualising Bayes nets. Firstly, as we noted in construction of a Bayes net from a general distribution, the ordering of the expansion was arbitrary. Thus even in the case of a distribution with no conditional independencies, there are multiple minimal I-maps. This holds true in general, there can be many possible I-maps for a given set of conditional independencies. We can view these sets as equivalence classes, inducing a relation over DAGs called I-equivalence. 
 
+Of further note is that we carefully phrased the definition of a minimal I-map, in that we did not require the conditional independencies that hold in the distribution to be exactly equal to those induced by the graph, which is known as a perfect I-map. Not all distributions have a Bayes net that is a perfect map. Usually this is the case when there is local structure in the CPDs, since Bayesian network structures only capture relationships at the variable level.
 
 _In this post we'll show how to make Naive Bayes less naive by introducing tree structured dependencies using the Chow-Liu algorithm, resulting in a model with lower bias. We'll also use this as a very brief introduction to the broader class of probabilistic graphical models._
 
@@ -98,10 +106,6 @@ Talking points:
 
 More formally, if $$I(\mathcal{P})$$ is the set of conditional independencies that hold in a distribution $$\mathcal{P}$$, and $$P_{G}$$ is the joint distribution induced by a Bayesian network with graph $$G$$, then $$G$$ is an I-map for $$P$$ if and only if $$I(P_{G}) \subseteq I(P)$$, and is a minimal I-map if and only if the removal of any edge would render it no longer an I-map. Notice that we did not require $$I(P_{G}) = I(P)$$, so even if an I-map is minimal, there may still be conditional independencies which hold in $$P$$ but are not asserted by $$G$$. The existence which is called a perfect I-map, and may not always exist as a Bayesian network for a given distribution.
 
+[^3]: A Bayesian classifier is simply one which predicts according to $$\hat{y} = \underset{y}{\arg\max} P(Y=y\vert X=x)$$. It has the nice property of being theoretically optimal.
+
 {:/comment}
-
-### Footnotes
-
-[^1]: For an interesting example of this see _[Sachs et al. (2005)](http://science.sciencemag.org/content/sci/308/5721/523.full.pdf)_, which applied Bayesian network learning to protein signalling pathways, predicting a novel casual relationship which was then experimentally verified.
-
-[^2]: As a quick reminder, two random variables $$X$$ and $$Y$$ are conditionally independent given $$Z$$, written as $$X \perp Y \vert Z$$, if and only if $$P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$.
