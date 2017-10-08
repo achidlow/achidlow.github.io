@@ -47,19 +47,46 @@ In other words, any distribution can be encoded as a Bayes net with the structur
 
 ![complete directed acyclic graph of five nodes, in topological order](/assets/images/K5-DAG-topo-order.png){:class="centred-image"}
 
-However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$G$$ for the distribution $$P$$ that has the minimum number of edges possible, whilst still being able to encode $$P$$. Such a graph is called a minimal I-map (independency map) for $$P$$, which is a relation of the conditional independencies[^2] that hold in $$P$$ and those that are induced by $$G$$. 
+However, just because we can, doesn't mean we should! In fact, in order to reduce the number of parameters, which helps with both learning and inference, we would like to use a graph structure $$G$$ for the distribution $$P$$ that has the minimum number of edges possible, whilst still being able to encode $$P$$. Such a graph is called a minimal I-map (independency map) for $$P$$, which is a relation of the conditional independencies[^2] that hold in $$P$$ and those that are induced by $$G$$.
+
+Finding the set of conditional independencies that hold in a given graph structure is beyond the scope of this post, instead we continue to take a constructive approach.
+
+For example, say there are two unrelated screening tests for a certain medical condition, which occurs in the population with some know probability. Neither test is perfect though, each test has its own sensitivity and specificity. If we conduct one screening test, naturally that would give us information as to the likely outcome of the other test. However, if we had some way of directly observing whether a patient has the medical condition, say through surgery, then knowing the outcome of one test would likely give us no extra information about the other. In this case we might assume that the two tests are conditionally independent if we know whether the patient really has the condition or not. So we could factorise the joint distribution like so:
+
+<p>
+$$
+\begin{align}
+P(D, T_1, T_2) &= P(D) P(T_1, T_2 \vert D) \\
+               &= P(D) P (T_1 \vert D) P(T_2 \vert D)
+\end{align}
+$$
+</p>
+
+Which results in the network:
+
+![bayesian network example](/assets/images/3Node-BayesNet-Diagnostic.png){:class="centred-image"}
+
+Compare this with the expansion via the chain rule without the assumption of conditional independence, and the associated Bayes net structure.
 
 {::comment}
-Consequences:
-- any two variables that do not have a directed path between them are conditionally independent a priori.
+Finding the set of conditional independencies that hold in a given graph structure is beyond the scope of this post unfortunately, but there are a few results that we should take note of to help with conceptualising Bayes nets. Firstly, as we noted in construction of a Bayes net from a general distribution, the ordering of the expansion was arbitrary. Thus even in the case of a distribution with no conditional independencies, there are multiple minimal I-maps. This holds true in general, there can be many possible I-maps for a given set of conditional independencies. We can view these sets as equivalence classes, inducing a relation over DAGs called I-equivalence. 
 
-## Naive Bayes as a Bayes net
+Of further note is that we carefully phrased the definition of a minimal I-map, in that we did not require the conditional independencies that hold in the distribution to be exactly equal to those induced by the graph, which is known as a perfect I-map. Not all distributions have a Bayes net that is a perfect map. Usually this is the case when there is local structure in the CPDs, since Bayesian network structures only capture relationships at the variable level.
+{:/comment}
+
+## Naive Bayes as a Bayesian network
 
 ![naive bayes graphical structure](/assets/images/naive-bayes.png){:class="float-right"}
 
 Naive Bayes is a family of bayesian classifiers that has a very natural interpretation as a probabilistic graphical model. It is possibly the simplest such type of network
 
 <div style="clear: both;"></div>
+
+{::comment}
+Consequences:
+- any two variables that do not have a directed path between them are conditionally independent a priori.
+
+
 
 _In this post we'll show how to make Naive Bayes less naive by introducing tree structured dependencies using the Chow-Liu algorithm, resulting in a model with lower bias. We'll also use this as a very brief introduction to the broader class of probabilistic graphical models._
 
