@@ -15,7 +15,7 @@ author: adam
 description: A brief and practical introduction to Probabilistic Graphical Models through augmenting Naive Bayes with the Chow-Liu algorithm
 ---
 
-_This short series of posts aims to be a brief and practical introduction to the framework of probabilistic graphical models by using the familiar Naive Bayes as a springboard to the more general class of Bayesian network structures._
+_This short series of posts aims to be a brief and practical introduction to the framework of probabilistic graphical models, by using the familiar Naive Bayes as a springboard to the more general class of Bayesian network structures._
 
 ## Why Probabilistic Graphical Models?
 
@@ -66,11 +66,17 @@ From which we can construct the simple network:
 
 ![bayesian network example](/assets/images/3Node-BayesNet-Diagnostic.png){:class="centred-image"}
 
-Compare this with the expansion via the chain rule without the assumption of conditional independence, and the associated Bayes net structure.
+Compare this with the expansion via the chain rule without the assumption of conditional independence, and the associated Bayes net structure. 
+
+Continuing in the medical diagnosis setting, here is a real-world example of a Bayesian network:
+
+![ICU-alarm bayesian network](/assets/images/ICU-Alarm.png){:class="centred-image"}
+
+The ICU-ALARM network from _[Beinlich et al. (1989)](http://cs.brown.edu/courses/csci2420/assignments/alarmNetwork.pdf)_ was designed to monitor the condition of patients in Intensive Care Units, and is an example of a network constructed via knowledge engineering, rather than through machine learning. In it, we can see nodes for various diagnoses towards the top, and observed variables mostly as leaf nodes, sometimes connected via latent variables. Using conditional independence assumptions here doesn't just simplify the presentation, it also makes the computational problem tractable. With 37 different nodes, each representing a categorical variable, there is a total of ~500 local CPD parameters. If the graph was fully connected, even with the simple case where all the variables were binary, we would still have ~137 billion independent parameters.
 
 ## Naive Bayes as a Bayesian network
 
-Naive Bayes is a family of Bayesian classifiers that have very natural interpretations as probabilistic graphical models. It is defined by it's assumption of class-conditional independence. That is, if $$C$$ is the class random variable and $$X_1,...,X_n$$ are the features, then it assumes that $$X_i \perp \mathbf{X}_{-i}\ \vert\ C$$ [^3]. Which means we can write the joint probability as:
+Naive Bayes is a family of Bayesian classifiers[^3] that have very natural interpretations as probabilistic graphical models. It is defined by it's assumption of class-conditional independence. That is, if $$C$$ is the class random variable and $$X_1,...,X_n$$ are the features, then it assumes that $$X_i \perp \mathbf{X}_{-i}\ \vert\ C$$ [^4]. Which means we can write the joint probability as:
 
 $$P(C,X_i,...,X_n) = P(C) \prod_i^n P(X_i \vert C)$$
 
@@ -78,7 +84,13 @@ From which we can construct the network:
 
 ![naive bayes graphical structure](/assets/images/naive-bayes.png){:class="centred-image"}
 
-Note the difference here with the example disease network; in that case, there was good reason to assume the features were independent.
+Note the difference here with the example disease network; in that case, there was reason to believe the features were independent. In the general case, when applying Naive Bayes, the class-conditional independence is just a simplifying assumption. However, even when this assumption is clearly violated, it can still produce surprisingly good results. 
+
+Take for example the problem of spam classification using bag-of-words features; clearly the occurrence of different words are not independent, even if we know if the email is spam or not. Certain words occur more often within the same sentence, and of course the overall subject matter of the email will also effect certain correlations. We can tackle the first problem by taking bi-grams or tri-grams as features, but there's no such simple solution to the other problems. The end result of such violated conditional-independence assumptions is that the actual probability estimates Naive Bayes gives us tend to be skewed towards the extremes.
+
+## Tree-Augmented Naive Bayes and the Chow-Liu Algorithm
+
+Let's look at the simplest possible extension to Naive Bayes, which will allow us to take into account some correlations between different variables, whilst still being fairly simple in terms of implementation, computational complexity, and number of independent parameters.
 
 ### Footnotes
 
@@ -86,26 +98,6 @@ Note the difference here with the example disease network; in that case, there w
 
 [^2]: As a quick reminder, two random variables $$X$$ and $$Y$$ are conditionally independent given $$Z$$, written as $$X \perp Y\ \vert\ Z$$, if and only if $$P(X, Y \vert Z) = P(X \vert Z) P(Y \vert Z)$$.
 
-[^3]: Using the shorthand notation $$\mathbf{X}_{-i} = \{X_j \vert i \neq j \}$$.
-
-{::comment}
-Consequences:
-- any two variables that do not have a directed path between them are conditionally independent a priori.
-
-Finding the set of conditional independencies that hold in a given graph structure is beyond the scope of this post unfortunately, but there are a few results that we should take note of to help with conceptualising Bayes nets. Firstly, as we noted in construction of a Bayes net from a general distribution, the ordering of the expansion was arbitrary. Thus even in the case of a distribution with no conditional independencies, there are multiple minimal I-maps. This holds true in general, there can be many possible I-maps for a given set of conditional independencies. We can view these sets as equivalence classes, inducing a relation over DAGs called I-equivalence. 
-
-Of further note is that we carefully phrased the definition of a minimal I-map, in that we did not require the conditional independencies that hold in the distribution to be exactly equal to those induced by the graph, which is known as a perfect I-map. Not all distributions have a Bayes net that is a perfect map. Usually this is the case when there is local structure in the CPDs, since Bayesian network structures only capture relationships at the variable level.
-
-_In this post we'll show how to make Naive Bayes less naive by introducing tree structured dependencies using the Chow-Liu algorithm, resulting in a model with lower bias. We'll also use this as a very brief introduction to the broader class of probabilistic graphical models._
-
-Talking points:
-- Naive Bayes isn't so much an algorithm as it is a network structure 
-- Naive Bayes owes its name to the very strong independence assumptions it makes about features. Specifically it assumes that all the features are conditionally independent given the class.
-- narrow down the independecies (however in empirical distribution these are never there)
-- perfect maps (not always possible with Bayes Nets)
-
-More formally, if $$I(\mathcal{P})$$ is the set of conditional independencies that hold in a distribution $$\mathcal{P}$$, and $$P_{G}$$ is the joint distribution induced by a Bayesian network with graph $$G$$, then $$G$$ is an I-map for $$P$$ if and only if $$I(P_{G}) \subseteq I(P)$$, and is a minimal I-map if and only if the removal of any edge would render it no longer an I-map. Notice that we did not require $$I(P_{G}) = I(P)$$, so even if an I-map is minimal, there may still be conditional independencies which hold in $$P$$ but are not asserted by $$G$$. The existence which is called a perfect I-map, and may not always exist as a Bayesian network for a given distribution.
-
 [^3]: A Bayesian classifier is simply one which predicts according to $$\hat{y} = \underset{y}{\arg\max} P(Y=y\vert X=x)$$. It has the nice property of being theoretically optimal.
 
-{:/comment}
+[^4]: Using the shorthand notation $$\mathbf{X}_{-i} = \{X_j \vert i \neq j \}$$.
