@@ -1,6 +1,6 @@
 # main text of home
 name: Adam Chidlow
-bio: Software Engineer <br class="rwd-break"/> & <br class="rwd-break"/> Applied Mathematician
+bio: Data Scientist
 
 # twitter summary info
 description: Adam Chidlow is a Software Engineer and an Applied Mathematician based in Perth, Western Australia
@@ -74,7 +74,7 @@ width: large
 #projects: true
 
 # if you don't need "about" or "blog", comment them out below
-about: true
+#about: true
 #blog: true
 #show-feed: true
 
