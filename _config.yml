@@ -1,9 +1,9 @@
 # main text of home
 name: Adam Chidlow
-bio: Data Scientist at Readify
+bio: Data Scientist @ <a href="https://readify.net">Readify</a>
 
 # twitter summary info
-description: Adam Chidlow is a Software Engineer and an Applied Mathematician based in Perth, Western Australia
+description: Adam Chidlow is a Data Scientist based in Perth, Western Australia
 
 # if it's an external image, update below for true
 # better with square images
