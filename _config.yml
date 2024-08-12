@@ -1,9 +1,9 @@
 # main text of home
 name: Adam Chidlow
-bio: Software Engineer / Data Scientist / Consultant
+bio: |
+  Lead Software Engineer @ <a href="https://makerx.com.au">MakerX</a>
 
-# twitter summary info
-description: Adam Chidlow is a Software Engineer / Data Scientist based in Perth, Western Australia
+description: Adam Chidlow is a Lead Software Engineer based in Perth, Western Australia
 
 # if it's an external image, update below for true
 # better with square images
@@ -36,7 +36,7 @@ analytics-google: 'UA-104940718-1'
 
 # if you don't have any of social below, comment the line
 # facebook: myfacebook
-twitter: Adam_Chidlow
+#twitter: Adam_Chidlow
 # google: mygoogle
 # instagram: myinstagram
 # pinterest: mypinterest
