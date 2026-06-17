@@ -1,4 +1,18 @@
-.home,
+.home
+    // centre the page in the viewport; min-height (not height) lets content
+    // taller than the screen grow and scroll instead of clipping at the top
+    box-sizing: border-box
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+    justify-content: center
+    padding: 40px 0
+
+    // the home div is also tagged .page, whose 125px top margin would sit
+    // outside the centred box and push it down; &.page outweighs bare .page
+    &.page
+        margin-top: 0
+
 .blog,
 .projects
     margin-top: 125px
