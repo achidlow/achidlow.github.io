@@ -22,18 +22,6 @@ title: chidlow.net
 
 permalink: /posts/:title
 
-# To enable google analytics, supply your token below
-analytics-google: 'UA-104940718-1'
-
-# To enable piwik tracking, supply your url & site ID below
-# analytics-piwik-url: 'piwik.my-host.com'
-# analytics-piwik-id: 1
-
-# if you don't want comments in your posts, leave categories empty
-#disqus:
-#  shortname: mydisqus # enter this from your disqus account
-#  categories: [blog, project] # only show disqus for posts that have these categories
-
 # if you don't have any of social below, comment the line
 # facebook: myfacebook
 #twitter: Adam_Chidlow
@@ -107,10 +95,8 @@ jekyll-mentions:
 
 exclude:
   - README.md
-  - Gemfile 
-  - Gemfile.lock  
-  - Rakefile
-  - travis.sh
+  - Gemfile
+  - Gemfile.lock
 
 sass:
   style: compressed
