@@ -1,12 +1,29 @@
 .header-home
     display: block
-    margin: 0 auto
+    margin: 0 auto 0px
+    padding-bottom: 30px
     text-align: center
     position: relative
     z-index: 99
+    border-bottom: 1px solid $epsilon
+
+    // node centred on the bottom border, mirroring .footer-main's top divider
+    &:after
+        display: block
+        content: " "
+        width: 7px
+        height: 7px
+        border: $epsilon 1px solid
+        position: absolute
+        bottom: -5px
+        left: 50%
+        margin-left: -5px
+        background: #FFF
+        box-shadow: #FFF 0 0 0 5px
+        border-radius: 3px
 
     > .link > .selfie
-        width: 125px
+        width: 188px
         margin-bottom: 25px
         border-radius: 100%
         transition: all .2s
@@ -27,7 +44,7 @@
         font-style: normal
         color: $gama
         width: 70%
-        margin: 0 auto 30px
+        margin: 0 auto
 
         // if you put some links in your bio. ;)
         a
